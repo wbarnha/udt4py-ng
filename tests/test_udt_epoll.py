@@ -47,7 +47,7 @@ import unittest
 from udt4py import UDTSocket, UDTException, UDTEpoll
 
 
-class UDTEpollTest(unittest.TestCase):
+class TestUDTEpollTest(unittest.TestCase):
     def testEpoll(self):
         self.socket = UDTSocket()
         self.socket.bind("0.0.0.0:7015")

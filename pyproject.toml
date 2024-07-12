@@ -1,0 +1,84 @@
+[project]
+name = "udt4py-ng"
+description = "libudt4 Python wrapper written with Cython"
+requires-python = ">=3.8"
+dynamic = [
+    "version",
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = [
+    "udt",
+    "pyudt",
+    "udt4",
+    "udt4py",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: POSIX",
+    "Programming Language :: Cython",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: System :: Networking",
+    "Operating System :: POSIX",
+    "Operating System :: POSIX :: Linux",
+]
+
+authors = [
+    { name = "Samsung Electronics Co.,Ltd.", email= "v.markovtsev@samsung.com" },
+]
+
+maintainers = [
+    { name = "William Barnhart", email = "williambbarnhart@gmail.com" },
+]
+
+[project.urls]
+Source = "https://github.com/wbarnha/udt4py-ng"
+Changes = "https://github.com/wbarnha/udt4py-ng/releases"
+
+[build-system]
+requires = [
+    "setuptools>=30.3.0",
+    "setuptools_scm[toml]",
+    "wheel",
+    "Cython",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+# enables setuptools_scm to provide the dynamic version
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+
+testpaths = [
+    "tests",
+]
+
+
+[tool.cibuildwheel]
+build-frontend = "build"
+build = "cp3*"
+skip = ["*-macosx_universal*", "*-win32", "*-manylinux_i686", "*-musllinux_*"]
+archs = ["auto64"]
+
+test-requires = ['pytest']
+test-command = "pytest {project}/tests"
+
+before-build = "pip install Cython"
+
+manylinux-x86_64-image = "manylinux2014"
+manylinux-pypy_x86_64-image = "manylinux2014"
+
+[tool.cibuildwheel.linux]
+# Avoid re-building the C library in every iteration by testing for the build directory.
+before-build = "pip3 install Cython && yum install -y udt-devel"

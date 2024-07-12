@@ -143,9 +143,9 @@ class UDTSocketTest(unittest.TestCase):
     def testFiles(self):
         FILE_OUT = "/tmp/udtsocket_test_out.txt"
         sock1 = UDTSocket()
-        sock2 = UDTSocket()
-        sock1.bind("0.0.0.0:7015")
+        sock1.bind("0.0.0.0:7016")
         sock1.listen()
+        sock2 = UDTSocket()
         other_thread = threading.Thread(target=self.sendFile, args=(sock2,))
         other_thread.start()
         sock, _ = sock1.accept()
@@ -153,15 +153,17 @@ class UDTSocketTest(unittest.TestCase):
         with open(FILE_OUT, "r") as fr:
             self.assertEqual(UDTSocketTest.CONTENTS, fr.read())
         os.remove(FILE_OUT)
+        sock1.close()
         other_thread.join()
 
     def sendFile(self, sock):
         FILE_IN = "/tmp/udtsocket_test_in.txt"
         with open(FILE_IN, "w") as fw:
             fw.write(UDTSocketTest.CONTENTS)
-        sock.connect("127.0.0.1:7015")
+        sock.connect("127.0.0.1:7016")
         sock.sendfile(FILE_IN)
         os.remove(FILE_IN)
+        sock.close()
 
 
 if __name__ == "__main__":
