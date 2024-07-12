@@ -39,35 +39,29 @@ libudt4 URL:            http://udt.sourceforge.net/
 
 from distutils.core import setup
 from distutils.extension import Extension
-from Cython.Build import cythonize
-from Cython.Distutils import build_ext
+try:
+    from Cython.Build import cythonize
+    from Cython.Distutils import build_ext
+except ImportError:
+    raise ImportError("Cython is needed to setup this project!")
 
 setup(
-    name="udt4py",
+    name="udt4py-ng",
     description='libudt4 Python wrapper written with Cython',
-    version="1.2",
+    use_scm_version=True,
+    setup_requires=["setuptools_scm"],
     license="Simplified BSD",
     author="Samsung Electronics Co.,Ltd.",
     author_email="v.markovtsev@samsung.com",
-    url="https://github.com/vmarkovtsev/udt4py",
-    download_url='https://github.com/vmarkovtsev/udt4py',
+    maintainer="William Barnhart",
+    url="https://github.com/wbarnha/udt4py-ng",
+    download_url='https://github.com/wbarnha/udt4py-ng',
+    cmdclass={"build_ext": build_ext},
+    package_dir={"": "src"},
     ext_modules=cythonize([Extension(
         "udt4py",
         ["src/udt4py.pyx"],
         language="c++",
         libraries=["udt"],
     )]),
-    keywords=['udt', 'pyudt', 'udt4', 'udt4py'],
-    classifiers=[
-        'Development Status :: 4 - Beta',
-        'Environment :: Console',
-        'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
-        'Operating System :: POSIX',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.2',
-        'Programming Language :: Python :: 3.3',
-        'Topic :: Software Development :: Libraries',
-        'Topic :: System :: Networking',
-    ],
 )

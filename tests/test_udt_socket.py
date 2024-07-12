@@ -153,6 +153,7 @@ class UDTSocketTest(unittest.TestCase):
         with open(FILE_OUT, "r") as fr:
             self.assertEqual(UDTSocketTest.CONTENTS, fr.read())
         os.remove(FILE_OUT)
+        sock1.close()
         other_thread.join()
 
     def sendFile(self, sock):
@@ -162,6 +163,7 @@ class UDTSocketTest(unittest.TestCase):
         sock.connect("127.0.0.1:7015")
         sock.sendfile(FILE_IN)
         os.remove(FILE_IN)
+        sock.close()
 
 
 if __name__ == "__main__":
