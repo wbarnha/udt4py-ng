@@ -48,8 +48,6 @@ except ImportError:
 setup(
     name="udt4py-ng",
     description='libudt4 Python wrapper written with Cython',
-    use_scm_version=True,
-    setup_requires=["setuptools_scm"],
     license="Simplified BSD",
     author="Samsung Electronics Co.,Ltd.",
     author_email="v.markovtsev@samsung.com",

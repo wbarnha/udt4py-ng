@@ -1,7 +1,7 @@
 [project]
 name = "udt4py-ng"
 description = "libudt4 Python wrapper written with Cython"
-requires-python = ">=3"
+requires-python = ">=3.8"
 dynamic = [
     "version",
 ]
@@ -21,7 +21,12 @@ classifiers = [
     "Operating System :: POSIX",
     "Programming Language :: Cython",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Libraries",
     "Topic :: System :: Networking",
     "Operating System :: POSIX",
