@@ -20,10 +20,14 @@ jobs:
           platforms: all
 
       - name: Build and test wheels
-        uses: pypa/cibuildwheel
+        uses: pypa/cibuildwheel@v2.19.2
         env:
           CIBW_ARCHS_LINUX: auto aarch64
           CIBW_ARCHS_MACOS: x86_64 arm64
+        with:
+          package-dir: .
+          output-dir: dist
+          config-file: "{package}/pyproject.toml"
 
       - uses: actions/upload-artifact@v3
         if: github.event_name == 'release' && github.event.action == 'created'
