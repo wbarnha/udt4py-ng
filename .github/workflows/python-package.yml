@@ -14,17 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up QEMU
-        if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v2
-        with:
-          platforms: all
-
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.19.2
-        env:
-          CIBW_ARCHS_LINUX: auto aarch64
-          CIBW_ARCHS_MACOS: x86_64 arm64
         with:
           package-dir: .
           output-dir: dist
